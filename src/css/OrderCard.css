@@ -1,0 +1,30 @@
+.card {
+  padding: 6px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.card:nth-child(5n + 1) { background-color: #bcc5e2; }
+.card:nth-child(5n + 2) { background-color: #e7c9a2; }
+.card:nth-child(5n + 3) { background-color: #cbeb91; }
+.card:nth-child(5n + 4) { background-color: #dfe6a1; }
+.card:nth-child(5n + 5) { background-color: #dfaece; }
+
+.control {
+  margin-top: 4px;
+  font-size: 14pt;
+}
+
+.control > * {
+  width: 2em;
+}
+
+/* Hide input's arrows (https://stackoverflow.com/q/3790935) */
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}

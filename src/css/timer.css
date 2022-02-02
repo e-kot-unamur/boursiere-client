@@ -1,0 +1,23 @@
+.progress {
+  text-align: center;
+  font-weight: bold;
+  white-space: nowrap;
+  color: white;
+  background-color: var(--primary-color);
+  border-radius: var(--roundness);
+  transition: width 333ms linear;
+}
+
+.splash {
+  background-color: var(--primary-color);
+  animation-name: splash;
+  animation-duration: 0.8s;
+  animation-direction: alternate;
+  animation-iteration-count: 2;
+}
+
+@keyframes splash {
+  0% { width: 0; height: 0; border-radius: 512px; }
+  20% { width: 100%; height: 100%; border-radius: 0; }
+  100% { width: 100%; height: 100%; border-radius: 0; }
+}

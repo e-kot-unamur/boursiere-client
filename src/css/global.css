@@ -1,0 +1,146 @@
+/* Customization */
+:root {
+  --font-size: 13pt;
+  --primary-color: #141441;
+  --alert-color: #d82424;
+  --roundness: 2px;
+}
+
+/* Base */
+body {
+  max-width: 600px;
+  margin: auto;
+  box-sizing: border-box;
+  font-size: var(--font-size);
+  font-family:
+    /* macOS and iOS */
+    -apple-system, BlinkMacSystemFont,
+    /* Windows */
+    "Segoe UI",
+    /* Android */
+    Roboto,
+    /* GNU/Linux */
+    Oxygen, Ubuntu, Cantarell,
+    /* Basic web fallback */
+    "Open Sans", "Helvetica Neue", Arial, sans-serif,
+    /* Emoji fonts */
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+*, ::before, ::after {
+  box-sizing: inherit;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Custom buttons and inputs */
+button, input, optgroup, select, textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+input:not([type]), input[type=password] {
+  width: 100%;
+}
+
+button, .button {
+  display: inline-block;
+  margin: 4px;
+  padding: 8px 12px;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+  border-radius: var(--roundness);
+  color: white;
+  background-color: var(--primary-color);
+  cursor: pointer;
+  transition: opacity 0.1s, transform 0.1s;
+}
+
+button:hover, .button:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+/* Custom tables */
+table {
+  width: 100%;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 4px 12px;
+}
+
+tr:nth-child(even) {
+  background-color: #eee;
+}
+
+th {
+  text-align: left;
+  background-color: #eee;
+}
+
+/* Overlays and modals */
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.shadow {
+  background-color: #0005;
+  animation-name: fade-in;
+  animation-duration: 0.5s;
+}
+
+.modal {
+  max-width: 400px;
+  padding: 16px;
+  border-radius: var(--roundness);
+  background-color: white;
+}
+
+/* Alert boxes */
+.alert {
+  width: 300px;
+  padding: 8px 12px;
+  position: fixed;
+  top: 32px;
+  left: calc(50vw - 150px);
+  z-index: 2;
+  border-radius: var(--roundness);
+  color: white;
+  background-color: var(--alert-color);
+  animation-name: slide-down;
+  animation-duration: 1.5s;
+  animation-direction: alternate;
+  animation-iteration-count: 2;
+}
+
+/* Animations */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-down {
+  0% { transform: translateY(-300%) }
+  50% { transform: translateY(0); }
+  100% { }
+}

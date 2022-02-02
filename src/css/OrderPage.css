@@ -1,0 +1,6 @@
+.orders {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 12em);
+  justify-content: center;
+  gap: 4px;
+}
