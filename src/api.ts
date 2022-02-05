@@ -1,5 +1,3 @@
-const host = 'http://localhost:8080'
-
 export interface Status {
   nextPeriod: number
 }
@@ -44,10 +42,14 @@ export class ApiError extends Error {
   }
 }
 
+const host = import.meta.env.DEV
+  ? 'http://localhost:8080'
+  : ''
+
 export async function login(name: string, password: string): Promise<User> {
-  const response = await fetch(`${host}/api/auth`, {
+  const response = await fetch(`${host}/api/users/token`, {
     method: 'POST',
-    headers: new Headers({ 'Content-Type': 'application/json' }),
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name, password }),
   })
 
@@ -60,17 +62,17 @@ export async function login(name: string, password: string): Promise<User> {
 }
 
 export async function logout(token: string) {
-  const response = await fetch(`${host}/api/auth`, {
+  await fetch(`${host}/api/users/token`, {
     method: 'DELETE',
     credentials: 'include',
-    headers: new Headers({ 'Authorization': `Bearer ${token}` }),
+    headers: { 'Authorization': `Bearer ${token}` },
   })
 
-  if (!response.ok) {
-    const data = await response.json()
-    throw new ApiError(data.error)
-  }
-
+  // We directly refresh the page here. Kind of a hack but it works.
+  // We also ignore any ApiError to actually log the user out even if the token
+  // doesn't exist server-side anymore. In that case, it would simply be
+  // deleted client-side.
+  // Finally, note that any NetworkError WONT be ignored. That's what we want.
   localStorage.removeItem('user')
   location.reload()
 }
@@ -86,14 +88,33 @@ export async function getBeers(): Promise<Beer[]> {
   return data as Beer[]
 }
 
+export async function setBeers(token: string, body: string): Promise<Beer[]> {
+  const response = await fetch(`${host}/api/beers`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'text/csv',
+      'Authorization': `Bearer ${token}`,
+    },
+    body,
+  })
+
+  const data = await response.json()
+  if (!response.ok) {
+    throw new ApiError(data.error)
+  }
+
+  return data as Beer[]
+}
+
 export async function orderBeers(token: string, orders: BeerOrder[]) {
   const response = await fetch(`${host}/api/beers/order`, {
     method: 'POST',
     credentials: 'include',
-    headers: new Headers({
+    headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
-    }),
+    },
     body: JSON.stringify(orders),
   })
 
@@ -106,7 +127,7 @@ export async function orderBeers(token: string, orders: BeerOrder[]) {
 export async function getStatistics(token: string): Promise<Statistics> {
   const response = await fetch(`${host}/api/beers/stats`, {
     credentials: 'include',
-    headers: new Headers({ 'Authorization': `Bearer ${token}` }),
+    headers: { 'Authorization': `Bearer ${token}` },
   })
 
   const data = await response.json()
@@ -120,7 +141,7 @@ export async function getStatistics(token: string): Promise<Statistics> {
 export async function getUsers(token: string): Promise<User[]> {
   const response = await fetch(`${host}/api/users`, {
     credentials: 'include',
-    headers: new Headers({ 'Authorization': `Bearer ${token}` }),
+    headers: { 'Authorization': `Bearer ${token}` },
   })
 
   const data = await response.json()
@@ -135,10 +156,10 @@ export async function createUser(token: string, user: UserFormData): Promise<Use
   const response = await fetch(`${host}/api/users`, {
     method: 'POST',
     credentials: 'include',
-    headers: new Headers({
+    headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
-    }),
+    },
     body: JSON.stringify(user)
   })
 
@@ -154,10 +175,10 @@ export async function updateUser(token: string, id: number, user: UserFormData):
   const response = await fetch(`${host}/api/users/${id}`, {
     method: 'PATCH',
     credentials: 'include',
-    headers: new Headers({
+    headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
-    }),
+    },
     body: JSON.stringify(user)
   })
 
@@ -173,7 +194,7 @@ export async function deleteUser(token: string, id: number) {
   const response = await fetch(`${host}/api/users/${id}`, {
     method: 'DELETE',
     credentials: 'include',
-    headers: new Headers({ 'Authorization': `Bearer ${token}` }),
+    headers: { 'Authorization': `Bearer ${token}` },
   })
 
   if (!response.ok) {

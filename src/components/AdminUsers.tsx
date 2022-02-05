@@ -4,8 +4,8 @@ import { getUsers, User } from '../api'
 import { UserFormCreate } from './UserFormCreate'
 import { UserFormUpdate } from './UserFormUpdate'
 import { UserFormDelete } from './UserFormDelete'
-import pencilIcon from '../images/pencil.svg'
-import trashIcon from '../images/trash.svg'
+import pencilIcon from '../images/pencil.png'
+import trashIcon from '../images/trash.png'
 
 interface Props {
   user: User

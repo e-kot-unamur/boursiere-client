@@ -35,6 +35,10 @@ body {
   display: none;
 }
 
+header {
+  text-align: right;
+}
+
 /* Custom buttons and inputs */
 button, input, optgroup, select, textarea {
   margin: 0;

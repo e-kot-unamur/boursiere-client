@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'preact/hooks'
 import { Beer, BeerOrder, getBeers } from '../api'
-import { toAlcoholContent, toPrice } from '../locales'
+import { toAlcoholContent, toRoundedPrice } from '../locales'
 
 type Message =
   | { type: 'update', data: Beer[] }
@@ -56,7 +56,7 @@ export function BeerTable() {
             <td>{toAlcoholContent(b.alcoholContent)}</td>
             <td>{b.stockQuantity - b.totalSoldQuantity}/{b.stockQuantity}</td>
             <td>
-              {toPrice(b.sellingPrice)}
+              {toRoundedPrice(b.sellingPrice)}
               {toTrend(b)}
               {b.sellingPrice === minPrice && ' 💸'}
             </td>

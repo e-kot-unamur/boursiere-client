@@ -2,9 +2,17 @@ export function toPrice(value: number): string {
   return value.toLocaleString('fr', { style: 'currency', currency: 'EUR' })
 }
 
+export function toRoundedPrice(value: number): string {
+  return toPrice(roundPrice(value))
+}
+
+export function roundPrice(value: number): number {
+  return Number(value.toFixed(1))
+}
+
 export function toAlcoholContent(value: number): string {
   // We're using the degree symbol '°' (U+00B0).
-  return `${value.toLocaleString('fr', { minimumFractionDigits: 1 })}\u00b0`
+  return `${value.toLocaleString('fr')}\u00b0`
 }
 
 export function toDuration(value: number): string {

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'preact/hooks'
 import { Beer, getBeers, orderBeers, User } from '../api'
 import { OrderCard } from '../components/OrderCard'
-import { toPrice } from '../locales'
+import { roundPrice, toPrice } from '../locales'
+import { UserHeader } from '../components/UserHeader'
 import '../css/OrderPage.css'
 
 export interface BeerOrder extends Beer {
@@ -24,22 +25,28 @@ export function OrderPage(props: Props) {
   }
 
   const handleClick = async () => {
-    await orderBeers(props.user.token, beers.map(b => ({ id: b.id, orderedQuantity: b.orderedQuantity })).filter(b => b.orderedQuantity !== 0))
-    setBeers(beers.map(b => ({ ...b, orderedQuantity: 0 })))
+    const orders = beers
+      .map(b => ({ id: b.id, orderedQuantity: b.orderedQuantity }))
+      .filter(b => b.orderedQuantity !== 0)
+    try {
+      await orderBeers(props.user.token, orders)
+      setBeers(beers.map(b => ({ ...b, orderedQuantity: 0 })))
+    } catch (err) {
+      // TODO
+    }
   }
 
-  const total = beers.reduce((a, b) => a + b.orderedQuantity * b.sellingPrice, 0)
+  const total = beers.reduce((a, b) => a + b.orderedQuantity * roundPrice(b.sellingPrice), 0)
 
   return (
     <>
+      <UserHeader user={props.user} />
       <div class="orders">
         {beers.map(b => (
           <OrderCard key={b.id} beer={b} onInput={handleInput} />
         ))}
       </div>
-      <button onClick={handleClick}>
-        Commander
-      </button>
+      <button onClick={handleClick}>Commander</button>
       <span>Total : {toPrice(total)}</span>
     </>
   )
