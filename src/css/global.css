@@ -1,6 +1,6 @@
 /* Customization */
 :root {
-  --font-size: 13pt;
+  --font-size: 14pt;
   --primary-color: #141441;
   --alert-color: #d82424;
   --roundness: 2px;
@@ -8,8 +8,9 @@
 
 /* Base */
 body {
-  max-width: 600px;
+  max-width: 700px;
   margin: auto;
+  padding: 0 12px;
   box-sizing: border-box;
   font-size: var(--font-size);
   font-family:
@@ -20,7 +21,7 @@ body {
     /* Android */
     Roboto,
     /* GNU/Linux */
-    Oxygen, Ubuntu, Cantarell,
+    Ubuntu, Cantarell, Oxygen,
     /* Basic web fallback */
     "Open Sans", "Helvetica Neue", Arial, sans-serif,
     /* Emoji fonts */
@@ -35,11 +36,12 @@ body {
   display: none;
 }
 
+/* Header bar */
 header {
   text-align: right;
 }
 
-/* Custom buttons and inputs */
+/* Buttons and inputs */
 button, input, optgroup, select, textarea {
   margin: 0;
   font-family: inherit;
@@ -70,7 +72,7 @@ button:hover, .button:hover {
   transform: scale(1.05);
 }
 
-/* Custom tables */
+/* Tables */
 table {
   width: 100%;
 }

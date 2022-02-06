@@ -1,6 +1,5 @@
 import type { JSX } from 'preact'
 import type { BeerOrder } from '../pages/OrderPage'
-import '../css/OrderCard.css'
 
 interface Props {
   beer: BeerOrder
@@ -23,9 +22,9 @@ export function OrderCard(props: Props) {
   }
 
   return (
-    <div class="card">
+    <div class="order">
       <div>{b.name}</div>
-      <div class="control">
+      <div class="order-control">
         <button onClick={handleDecrement}>
           &minus;
         </button>

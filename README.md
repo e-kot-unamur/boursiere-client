@@ -21,10 +21,10 @@ Build the website files for production into the "dist" folder.
 pnpm run build
 ```
 
-## Routes
+## Pages
 
-| Path         | Description                                                                                                                                   |
-| :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
-| /index.html  | Main page with beers' information (names, prices, quantities, etc.).                                                                          |
-| /orders.html | Page to take beer orders. **Authentication** is required.                                                                                     |
-| /admin.html  | Administration page that allows to manage users, start/stop the event, override prices, etc. **Authentication** as administrator is required. |
+| Path        | Description                                                                                                                                   |
+| :---------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
+| /index.html | Main page with beers' information (names, prices, quantities, etc.).                                                                          |
+| /order.html | Page to take beer orders. **Authentication** is required.                                                                                     |
+| /admin.html | Administration page that allows to manage users, start/stop the event, override prices, etc. **Authentication** as administrator is required. |

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'preact/hooks'
 import { Beer, BeerOrder, getBeers } from '../api'
-import { toAlcoholContent, toRoundedPrice } from '../locales'
+import { toAlcoholContent, toVolume, toRoundedPrice, roundPrice } from '../locales'
 
 type Message =
   | { type: 'update', data: Beer[] }
@@ -45,20 +45,26 @@ export function BeerTable() {
         <tr>
           <th>Nom</th>
           <th>Alcool</th>
-          <th>Stock</th>
           <th>Prix</th>
+          <th>Stock</th>
         </tr>
       </thead>
       <tbody>
         {beers.map(b => (
           <tr key={b.id}>
-            <td>{b.name}</td>
-            <td>{toAlcoholContent(b.alcoholContent)}</td>
-            <td>{b.stockQuantity - b.totalSoldQuantity}/{b.stockQuantity}</td>
+            <td>
+              {b.name} {toVolume(b.bottleSize)}
+            </td>
+            <td>
+              {toAlcoholContent(b.alcoholContent)}
+            </td>
             <td>
               {toRoundedPrice(b.sellingPrice)}
               {toTrend(b)}
               {b.sellingPrice === minPrice && ' 💸'}
+            </td>
+            <td>
+              {b.stockQuantity - b.totalSoldQuantity}/{b.stockQuantity}
             </td>
           </tr>
         ))}
@@ -68,12 +74,12 @@ export function BeerTable() {
 }
 
 function toTrend(b: Beer): string {
-  const priceIncrease = b.sellingPrice - b.previousSellingPrice
+  const priceIncrease = roundPrice(b.sellingPrice) - roundPrice(b.previousSellingPrice)
   if (priceIncrease > 0) {
     return ' ↗️'
   } else if (priceIncrease < 0) {
     return ' ↘️'
   } else {
-    return ' ➡️'
+    return ''
   }
 }

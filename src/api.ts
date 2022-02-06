@@ -10,6 +10,7 @@ export interface Beer {
 	totalSoldQuantity: number
 	sellingPrice: number
   previousSellingPrice: number
+  bottleSize: number
 	alcoholContent: number
 }
 

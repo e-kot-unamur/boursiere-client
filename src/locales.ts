@@ -10,6 +10,21 @@ export function roundPrice(value: number): number {
   return Number(value.toFixed(1))
 }
 
+export function toVolume(value: number): string {
+  let symbol: string
+  if (value < 100) {
+    symbol = 'cL'
+  } else if (value < 10000) {
+    value /= 100
+    symbol = 'L'
+  } else {
+    value /= 10000
+    symbol = 'hL'
+  }
+
+  return `${value.toLocaleString('fr')} ${symbol}`
+}
+
 export function toAlcoholContent(value: number): string {
   // We're using the degree symbol '°' (U+00B0).
   return `${value.toLocaleString('fr')}\u00b0`

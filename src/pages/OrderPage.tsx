@@ -3,7 +3,7 @@ import { Beer, getBeers, orderBeers, User } from '../api'
 import { OrderCard } from '../components/OrderCard'
 import { roundPrice, toPrice } from '../locales'
 import { UserHeader } from '../components/UserHeader'
-import '../css/OrderPage.css'
+import '../css/order.css'
 
 export interface BeerOrder extends Beer {
   orderedQuantity: number

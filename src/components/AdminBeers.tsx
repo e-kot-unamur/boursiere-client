@@ -24,6 +24,18 @@ export function AdminBeers(props: Props) {
   return (
     <>
       <h2>Bières</h2>
+      <p>
+        Vous pouvez charger les différentes bières dans le système en
+        téléchargeant ci-dessous un fichier CSV. Si nécessaire, un <a
+          href="https://github.com/e-kot-unamur/boursiere-server/raw/main/doc/beers.ods"
+          download
+        >template</a> est disponible sur GitHub.
+      </p>
+      <p>
+        Attention, charger un fichier <strong>remplace l'ensemble des bières
+        déjà existantes</strong> et <strong>supprime tout l'historique des
+        ventes et des prix</strong> !
+      </p>
       <form onSubmit={handleSubmit}>
         <input type="file" name="file" accept="text/csv" />
         <button type="submit">Charger</button>
