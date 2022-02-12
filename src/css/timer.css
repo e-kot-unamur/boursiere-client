@@ -5,7 +5,8 @@
   color: white;
   background-color: var(--primary-color);
   border-radius: var(--roundness);
-  transition: width 333ms linear;
+  /* Disabled due to high CPU usage */
+  /* transition: width 333ms linear; */
 }
 
 .splash {

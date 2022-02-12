@@ -8,7 +8,7 @@ interface Timer {
   nextPeriod: number
 }
 
-function getTimer() {
+function getTimer(): Timer {
   const periodDuration = 15 * 60 * 1000
   const previousPeriod = Math.floor(Date.now() / periodDuration) * periodDuration
   const nextPeriod = previousPeriod + periodDuration

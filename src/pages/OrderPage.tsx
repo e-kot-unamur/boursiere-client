@@ -2,7 +2,6 @@ import { useEffect, useState } from 'preact/hooks'
 import { Beer, getBeers, orderBeers, User } from '../api'
 import { OrderCard } from '../components/OrderCard'
 import { roundPrice, toPrice } from '../locales'
-import { UserHeader } from '../components/UserHeader'
 import '../css/order.css'
 
 export interface BeerOrder extends Beer {
@@ -40,7 +39,6 @@ export function OrderPage(props: Props) {
 
   return (
     <>
-      <UserHeader user={props.user} />
       <div class="orders">
         {beers.map(b => (
           <OrderCard key={b.id} beer={b} onInput={handleInput} />

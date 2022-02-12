@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks'
-import { ApiError, login, User, UserFormData } from '../api'
+import { login, User, UserFormData } from '../api'
 import { AlertBox } from './AlertBox'
 import { UserForm } from './UserForm'
 
