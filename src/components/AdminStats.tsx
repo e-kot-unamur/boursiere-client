@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'preact/hooks'
-import { Beer, getBeers, getStatistics, Statistics, User } from '../api'
+import { getStatistics, Statistics, useBeers, User } from '../api'
 import { toVolume, toPrice } from '../locales'
 
 interface Props {
@@ -7,16 +7,12 @@ interface Props {
 }
 
 export function AdminStats(props: Props) {
-  const [beers, setBeers] = useState<Beer[]>([])
+  const [beers, _] = useBeers()
   const [stats, setStats] = useState<Statistics>({ estimatedProfit: 0 })
 
   useEffect(() => {
-    getBeers().then(setBeers)
-  }, [])
-
-  useEffect(() => {
     getStatistics(props.user.token).then(setStats)
-  }, [props.user])
+  }, [props.user.token, beers])
 
   const totalQuantity = beers.reduce((a, b) => a + b.stockQuantity, 0)
   const soldQuantity = beers.reduce((a, b) => a + b.totalSoldQuantity, 0)
@@ -30,19 +26,11 @@ export function AdminStats(props: Props) {
       <table>
         <tr>
           <th>Bières vendues</th>
-          <td>{soldQuantity}</td>
-        </tr>
-        <tr>
-          <th>Bières totales</th>
-          <td>{totalQuantity}</td>
+          <td>{soldQuantity} / {totalQuantity}</td>
         </tr>
         <tr>
           <th>Volume vendu</th>
-          <td>{toVolume(soldVolume)}</td>
-        </tr>
-        <tr>
-          <th>Volume total</th>
-          <td>{toVolume(totalVolume)}</td>
+          <td>{toVolume(soldVolume)} / {toVolume(totalVolume)}</td>
         </tr>
         <tr>
           <th>Éthanol consommé</th>

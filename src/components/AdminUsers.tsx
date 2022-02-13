@@ -30,7 +30,7 @@ export function AdminUsers(props: Props) {
 
   useEffect(() => {
     getUsers(props.user.token).then(setUsers)
-  }, [])
+  }, [props.user.token])
 
   const handleCreate = (user: User) => {
     setUsers([...users, user])

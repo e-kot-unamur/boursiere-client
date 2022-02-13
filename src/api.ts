@@ -1,23 +1,31 @@
+import { useEffect, useState } from 'preact/hooks'
+import { useEvents } from './hooks'
+
 export interface Status {
   nextPeriod: number
 }
 
 export interface Beer {
-	id: number
-	barId: number
-	name: string
-	stockQuantity: number
-	totalSoldQuantity: number
-	sellingPrice: number
+  id: number
+  barId: number
+  name: string
+  stockQuantity: number
+  totalSoldQuantity: number
+  sellingPrice: number
   previousSellingPrice: number
   bottleSize: number
-	alcoholContent: number
+  alcoholContent: number
+  orderedQuantity: number
 }
 
 export interface BeerOrder {
   id: number
   orderedQuantity: number
 }
+
+export type BeerEvent =
+  | { type: 'update', data: Beer[] }
+  | { type: 'order', data: BeerOrder[] }
 
 export interface User {
   id: number
@@ -86,7 +94,7 @@ export async function getBeers(): Promise<Beer[]> {
     throw new ApiError(data.error)
   }
 
-  return data as Beer[]
+  return (data as Beer[]).map(b => ({ ...b, orderedQuantity: 0 }))
 }
 
 export async function setBeers(token: string, body: string): Promise<Beer[]> {
@@ -105,7 +113,42 @@ export async function setBeers(token: string, body: string): Promise<Beer[]> {
     throw new ApiError(data.error)
   }
 
-  return data as Beer[]
+  return (data as Beer[]).map(b => ({ ...b, orderedQuantity: 0 }))
+}
+
+export function useBeers(barId?: number): [Beer[], (newValue: Beer[]) => void] {
+  const [beers, setBeers] = useState<Beer[]>([])
+
+  useEffect(() => {
+    getBeers()
+      .then(beers => {
+        setBeers(beers.filter(b => barId === undefined || b.barId === barId))
+      })
+  }, [barId])
+
+  useEvents(`${host}/api/beers/events`, (e: BeerEvent) => {
+    switch (e.type) {
+      case 'update':
+        setBeers(beers => e.data
+          .map(b => {
+            const previous = beers.find(p => p.id === b.id)
+            return { ...b, orderedQuantity: previous === undefined ? 0 : previous.orderedQuantity }
+          })
+          .filter(b => barId === undefined || b.barId === barId))
+        break
+
+      case 'order':
+        setBeers(beers => beers.map(b => {
+          const order = e.data.find(o => o.id === b.id)
+          return order === undefined
+            ? b
+            : { ...b, totalSoldQuantity: b.totalSoldQuantity + order.orderedQuantity }
+        }))
+        break
+    }
+  }, [barId])
+
+  return [beers, setBeers]
 }
 
 export async function orderBeers(token: string, orders: BeerOrder[]) {

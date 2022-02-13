@@ -1,23 +1,14 @@
-import { useEffect, useState } from 'preact/hooks'
-import { Beer, getBeers, orderBeers, User } from '../api'
+import { orderBeers, useBeers, User } from '../api'
 import { OrderCard } from '../components/OrderCard'
 import { roundPrice, toPrice } from '../locales'
 import '../css/order.css'
-
-export interface BeerOrder extends Beer {
-  orderedQuantity: number
-}
 
 interface Props {
   user: User
 }
 
 export function OrderPage(props: Props) {
-  const [beers, setBeers] = useState<BeerOrder[]>([])
-
-  useEffect(() => {
-    getBeers().then(beers => setBeers(beers.map(b => ({ ...b, orderedQuantity: 0 }))))
-  }, [])
+  const [beers, setBeers] = useBeers()
 
   const handleInput = (id: number, orderedQuantity: number) => {
     setBeers(beers.map(b => b.id === id ? { ...b, orderedQuantity } : b))

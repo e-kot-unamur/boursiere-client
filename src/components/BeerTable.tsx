@@ -1,41 +1,8 @@
-import { useState, useEffect } from 'preact/hooks'
-import { Beer, BeerOrder, getBeers } from '../api'
+import { Beer, useBeers } from '../api'
 import { toAlcoholContent, toVolume, toRoundedPrice, roundPrice } from '../locales'
 
-type Message =
-  | { type: 'update', data: Beer[] }
-  | { type: 'order', data: BeerOrder[] }
-
 export function BeerTable() {
-  const [beers, setBeers] = useState<Beer[]>([])
-
-  useEffect(() => {
-    getBeers().then(setBeers)
-  }, [])
-
-  useEffect(() => {
-    const source = new EventSource('http://localhost:8080/api/beers/events')
-
-    const handleMessage = (e: MessageEvent) => {
-      const msg = JSON.parse(e.data) as Message
-      if (msg.type === 'update') {
-        setBeers(msg.data)
-      } else if (msg.type === 'order') {
-        setBeers(beers => beers.map(b => {
-          const order = msg.data.find(o => o.id === b.id)
-          return order === undefined
-            ? b
-            : { ...b, totalSoldQuantity: b.totalSoldQuantity + order.orderedQuantity }
-        }))
-      }
-    }
-
-    source.addEventListener('message', handleMessage)
-    return () => {
-      source.removeEventListener('message', handleMessage)
-      source.close()
-    }
-  }, [])
+  const [beers, _] = useBeers()
 
   const minPrice = Math.min(...beers.map(b => b.sellingPrice))
 

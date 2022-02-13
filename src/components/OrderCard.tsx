@@ -1,8 +1,8 @@
 import type { JSX } from 'preact'
-import type { BeerOrder } from '../pages/OrderPage'
+import type { Beer } from '../api'
 
 interface Props {
-  beer: BeerOrder
+  beer: Beer
   onInput: (beerId: number, quantity: number) => void
 }
 
