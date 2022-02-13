@@ -120,10 +120,7 @@ export function useBeers(barId?: number): [Beer[], (newValue: Beer[]) => void] {
   const [beers, setBeers] = useState<Beer[]>([])
 
   useEffect(() => {
-    getBeers()
-      .then(beers => {
-        setBeers(beers.filter(b => barId === undefined || b.barId === barId))
-      })
+    getBeers().then(beers => setBeers(beers.filter(b => barId === undefined || b.barId === barId)))
   }, [barId])
 
   useEvents(`${host}/api/beers/events`, (e: BeerEvent) => {

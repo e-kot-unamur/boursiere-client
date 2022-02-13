@@ -20,12 +20,8 @@ export function BeerTimer() {
   const [remaining, setRemaining] = useState(timer.periodDuration)
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setRemaining(Math.max(0, timer.nextPeriod - Date.now()))
-    }, 333)
-    return () => {
-      clearInterval(interval)
-    }
+    const interval = setInterval(() => setRemaining(Math.max(0, timer.nextPeriod - Date.now())), 333)
+    return () => clearInterval(interval)
   }, [timer])
 
   const percentage = (1 - remaining / timer.periodDuration) * 100

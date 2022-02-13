@@ -1,8 +1,10 @@
 import { Beer, useBeers } from '../api'
+import { useIntUrlFragment } from '../hooks'
 import { toAlcoholContent, toVolume, toRoundedPrice, roundPrice } from '../locales'
 
 export function BeerTable() {
-  const [beers, _] = useBeers()
+  const barId = useIntUrlFragment()
+  const [beers, _] = useBeers(barId)
 
   const minPrice = Math.min(...beers.map(b => b.sellingPrice))
 

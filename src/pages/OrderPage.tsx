@@ -1,3 +1,5 @@
+import { useState } from 'preact/hooks'
+import { useIntUrlFragment } from '../hooks'
 import { orderBeers, useBeers, User } from '../api'
 import { OrderCard } from '../components/OrderCard'
 import { roundPrice, toPrice } from '../locales'
@@ -8,7 +10,8 @@ interface Props {
 }
 
 export function OrderPage(props: Props) {
-  const [beers, setBeers] = useBeers()
+  const barId = useIntUrlFragment()
+  const [beers, setBeers] = useBeers(barId)
 
   const handleInput = (id: number, orderedQuantity: number) => {
     setBeers(beers.map(b => b.id === id ? { ...b, orderedQuantity } : b))
@@ -16,8 +19,8 @@ export function OrderPage(props: Props) {
 
   const handleClick = async () => {
     const orders = beers
-      .map(b => ({ id: b.id, orderedQuantity: b.orderedQuantity }))
       .filter(b => b.orderedQuantity !== 0)
+      .map(b => ({ id: b.id, orderedQuantity: b.orderedQuantity }))
     try {
       await orderBeers(props.user.token, orders)
       setBeers(beers.map(b => ({ ...b, orderedQuantity: 0 })))
