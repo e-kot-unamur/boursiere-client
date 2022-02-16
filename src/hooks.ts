@@ -1,4 +1,5 @@
 import { Inputs, useEffect, useState } from 'preact/hooks'
+import { dispatchError } from './components/AlertBox'
 
 export function useIntUrlFragment(): number | undefined {
   const [fragment, setFragment] = useState(getIntUrlFragment)
@@ -30,7 +31,7 @@ export function useLocalStorage<T>(key: string, defaultValue: T): [T, (newValue:
     try {
       localStorage.setItem(key, JSON.stringify(newValue))
     } catch (err) {
-      console.error(`failed to store ${key} to localStorage: ${err}`)
+      dispatchError(err as Error)
     } finally {
       setValue(newValue)
     }
@@ -42,8 +43,17 @@ export function useLocalStorage<T>(key: string, defaultValue: T): [T, (newValue:
 export function useEvents<T>(url: string, handle: (event: T) => void, inputs: Inputs) {
   useEffect(() => {
     const source = new EventSource(url)
+
     source.onmessage = e => handle(JSON.parse(e.data) as T)
-    source.onerror = () => setTimeout(() => location.reload(), 5000)
+
+    // If a disconnection occurs, try again after 5 seconds.
+    source.onerror = e => {
+      setTimeout(() => location.reload(), 5000)
+      dispatchError(e instanceof ErrorEvent
+        ? e.error
+        : new TypeError('disconnected from server-sent events'))
+    }
+
     return () => source.close()
   }, inputs)
 }

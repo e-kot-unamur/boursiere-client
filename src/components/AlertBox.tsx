@@ -8,11 +8,11 @@ export function AlertBox() {
   const [error, setError] = useState<Error | null>(null)
 
   useEffect(() => {
-    const handleCustomError = (e: CustomEvent<Error>) => setError(e.detail)
+    const handleError = (e: CustomEvent<Error>) => setError(e.detail)
     // @ts-expect-error: event type does not exist
-    addEventListener('api-error', handleCustomError)
+    addEventListener('api-error', handleError)
     // @ts-expect-error: event type does not exist
-    return () => removeEventListener('api-error', handleCustomError)
+    return () => removeEventListener('api-error', handleError)
   }, [])
 
   if (error === null) {
