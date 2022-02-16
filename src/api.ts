@@ -2,10 +2,6 @@ import { useEffect, useState } from 'preact/hooks'
 import { dispatchError } from './components/AlertBox'
 import { useEvents } from './hooks'
 
-export interface Status {
-  nextPeriod: number
-}
-
 export interface Beer {
   id: number
   barId: number
