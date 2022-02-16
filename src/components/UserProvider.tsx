@@ -1,6 +1,7 @@
 import type { FunctionComponent } from 'preact'
 import type { User } from '../api'
 import { useLocalStorage } from '../hooks'
+import { AlertBox } from './AlertBox'
 import { UserFormLogin } from './UserFormLogin'
 import { UserHeader } from './UserHeader'
 
@@ -13,7 +14,10 @@ export function UserProvider(props: Props) {
 
   if (user === null) {
     return (
-      <UserFormLogin onLogin={storeUser} />
+      <>
+        <AlertBox />
+        <UserFormLogin onLogin={storeUser} />
+      </>
     )
   }
 

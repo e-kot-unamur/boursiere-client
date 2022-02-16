@@ -1,5 +1,6 @@
 import { logout, User } from '../api'
 import exitIcon from '../images/exit.png'
+import { dispatchError } from './AlertBox'
 
 interface Props {
   user: User
@@ -10,7 +11,7 @@ export function UserHeader(props: Props) {
     try {
       await logout(props.user.token)
     } catch (err) {
-      // TODO
+      dispatchError(err as Error)
     }
   }
 

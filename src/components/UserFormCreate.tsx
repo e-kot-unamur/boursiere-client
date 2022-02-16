@@ -1,4 +1,5 @@
 import { createUser, User, UserFormData } from '../api'
+import { dispatchError } from './AlertBox'
 import { UserForm } from './UserForm'
 
 interface Props {
@@ -13,7 +14,7 @@ export function UserFormCreate(props: Props) {
       const user = await createUser(props.token, data)
       props.onCreate(user)
     } catch (err) {
-      // TODO
+      dispatchError(err as Error)
     }
   }
 

@@ -1,4 +1,5 @@
 import { updateUser, User, UserFormData } from '../api'
+import { dispatchError } from './AlertBox'
 import { UserForm } from './UserForm'
 
 interface Props {
@@ -14,7 +15,7 @@ export function UserFormUpdate(props: Props) {
       const user = await updateUser(props.token, props.user.id, data)
       props.onUpdate(user)
     } catch (err) {
-      // TODO
+      dispatchError(err as Error)
     }
   }
 

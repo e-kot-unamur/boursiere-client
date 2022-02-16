@@ -32,10 +32,6 @@ body {
   box-sizing: inherit;
 }
 
-.hidden {
-  display: none;
-}
-
 /* Header bar */
 header {
   text-align: right;

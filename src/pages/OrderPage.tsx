@@ -1,9 +1,9 @@
-import { useState } from 'preact/hooks'
-import { useIntUrlFragment } from '../hooks'
 import { orderBeers, useBeers, User } from '../api'
+import { AlertBox, dispatchError } from '../components/AlertBox'
 import { OrderCard } from '../components/OrderCard'
-import { roundPrice, toPrice } from '../locales'
 import '../css/order.css'
+import { useIntUrlFragment } from '../hooks'
+import { roundPrice, toPrice } from '../locales'
 
 interface Props {
   user: User
@@ -25,7 +25,7 @@ export function OrderPage(props: Props) {
       await orderBeers(props.user.token, orders)
       setBeers(beers.map(b => ({ ...b, orderedQuantity: 0 })))
     } catch (err) {
-      // TODO
+      dispatchError(err as Error)
     }
   }
 
@@ -33,6 +33,7 @@ export function OrderPage(props: Props) {
 
   return (
     <>
+      <AlertBox />
       <div class="orders">
         {beers.map(b => (
           <OrderCard key={b.id} beer={b} onInput={handleInput} />

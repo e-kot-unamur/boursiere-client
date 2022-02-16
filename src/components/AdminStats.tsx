@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'preact/hooks'
 import { getStatistics, Statistics, useBeers, User } from '../api'
-import { toVolume, toPrice } from '../locales'
+import { toPrice, toVolume } from '../locales'
+import { dispatchError } from './AlertBox'
 
 interface Props {
   user: User
@@ -11,7 +12,9 @@ export function AdminStats(props: Props) {
   const [stats, setStats] = useState<Statistics>({ estimatedProfit: 0 })
 
   useEffect(() => {
-    getStatistics(props.user.token).then(setStats)
+    getStatistics(props.user.token)
+      .then(setStats)
+      .catch(dispatchError)
   }, [props.user.token, beers])
 
   const totalQuantity = beers.reduce((a, b) => a + b.stockQuantity, 0)

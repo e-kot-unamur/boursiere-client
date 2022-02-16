@@ -5,8 +5,8 @@ export function useIntUrlFragment(): number | undefined {
 
   useEffect(() => {
     const handleHashChange = () => setFragment(getIntUrlFragment)
-    window.addEventListener('hashchange', handleHashChange)
-    return () => window.removeEventListener('hashchange', handleHashChange)
+    addEventListener('hashchange', handleHashChange)
+    return () => removeEventListener('hashchange', handleHashChange)
   }, [])
 
   return fragment

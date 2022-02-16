@@ -1,11 +1,12 @@
 import type { JSX } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
 import { getUsers, User } from '../api'
-import { UserFormCreate } from './UserFormCreate'
-import { UserFormUpdate } from './UserFormUpdate'
-import { UserFormDelete } from './UserFormDelete'
 import pencilIcon from '../images/pencil.png'
 import trashIcon from '../images/trash.png'
+import { dispatchError } from './AlertBox'
+import { UserFormCreate } from './UserFormCreate'
+import { UserFormDelete } from './UserFormDelete'
+import { UserFormUpdate } from './UserFormUpdate'
 
 interface Props {
   user: User
@@ -29,7 +30,9 @@ export function AdminUsers(props: Props) {
   const [action, setAction] = useState<Action>({ type: ActionType.None })
 
   useEffect(() => {
-    getUsers(props.user.token).then(setUsers)
+    getUsers(props.user.token)
+      .then(setUsers)
+      .catch(dispatchError)
   }, [props.user.token])
 
   const handleCreate = (user: User) => {

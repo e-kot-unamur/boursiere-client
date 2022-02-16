@@ -1,5 +1,6 @@
 import type { JSX } from 'preact'
 import { setBeers, User } from '../api'
+import { dispatchError } from './AlertBox'
 
 interface Props {
   user: User
@@ -16,7 +17,7 @@ export function AdminBeers(props: Props) {
         await setBeers(props.user.token, csv)
         element.value = ''
       } catch (err) {
-        // TODO
+        dispatchError(err as Error)
       }
     }
   }

@@ -1,4 +1,5 @@
 import { deleteUser, User } from "../api"
+import { dispatchError } from "./AlertBox"
 
 interface Props {
   token: string
@@ -13,7 +14,7 @@ export function UserFormDelete(props: Props) {
       await deleteUser(props.token, props.user.id)
       props.onDelete(props.user.id)
     } catch (err) {
-      // TODO
+      dispatchError(err as Error)
     }
   }
 
