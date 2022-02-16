@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'preact/hooks'
 import { toDuration } from '../locales'
+import timeoutSound from '../sounds/okletsgo.ogg'
 import '../css/timer.css'
 
 interface Timer {
@@ -31,6 +32,7 @@ export function BeerTimer() {
       {(remaining < 800 || remaining > timer.periodDuration - 1600) && (
         <div class="overlay">
           <div class="splash" onAnimationIteration={() => setTimer(getTimer)} />
+          <audio src={timeoutSound} autoPlay />
         </div>
       )}
       <div class="progress" style={`width: ${percentage}%`}>
