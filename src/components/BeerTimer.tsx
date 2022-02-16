@@ -1,37 +1,25 @@
 import { useEffect, useState } from 'preact/hooks'
+import '../css/timer.css'
 import { toDuration } from '../locales'
 import timeoutSound from '../sounds/okletsgo.ogg'
-import '../css/timer.css'
 
-interface Timer {
-  periodDuration: number
-  previousPeriod: number
-  nextPeriod: number
-}
-
-function getTimer(): Timer {
-  const periodDuration = 15 * 60 * 1000
-  const previousPeriod = Math.floor(Date.now() / periodDuration) * periodDuration
-  const nextPeriod = previousPeriod + periodDuration
-  return { periodDuration, previousPeriod, nextPeriod }
-}
+const duration = 15 * 60 * 1000
 
 export function BeerTimer() {
-  const [timer, setTimer] = useState<Timer>(getTimer)
-  const [remaining, setRemaining] = useState(timer.periodDuration)
+  const [remaining, setRemaining] = useState(getRemaining)
 
   useEffect(() => {
-    const interval = setInterval(() => setRemaining(Math.max(0, timer.nextPeriod - Date.now())), 333)
+    const interval = setInterval(() => setRemaining(getRemaining), 333)
     return () => clearInterval(interval)
-  }, [timer])
+  }, [])
 
-  const percentage = (1 - remaining / timer.periodDuration) * 100
+  const percentage = (1 - remaining / duration) * 100
 
   return (
     <p>
-      {(remaining < 800 || remaining > timer.periodDuration - 1600) && (
+      {(remaining < 800 || remaining > duration - 1600) && (
         <div class="overlay">
-          <div class="splash" onAnimationIteration={() => setTimer(getTimer)} />
+          <div class="splash" />
           <audio src={timeoutSound} autoPlay />
         </div>
       )}
@@ -40,4 +28,10 @@ export function BeerTimer() {
       </div>
     </p>
   )
+}
+
+function getRemaining(): number {
+  const lastPeriod = Math.floor(Date.now() / duration) * duration
+  const nextPeriod = lastPeriod + duration
+  return nextPeriod - Date.now()
 }

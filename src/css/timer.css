@@ -5,8 +5,9 @@
   color: white;
   background-color: var(--primary-color);
   border-radius: var(--roundness);
-  /* Disabled due to high CPU usage */
-  /* transition: width 333ms linear; */
+  transition: width 333ms linear;
+  /* Disabled on Firefox due to higher CPU usage */
+  -moz-transition: unset;
 }
 
 .splash {
