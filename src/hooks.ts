@@ -13,6 +13,9 @@ export function useIntUrlFragment(): number | undefined {
 }
 
 function getIntUrlFragment(): number | undefined {
+  // We'll use parseInt instead of Number because:
+  // * Number('') returns 0;
+  // * parseInt('') returns NaN.
   const value = parseInt(location.hash.substring(1))
   return Number.isNaN(value) ? undefined : value
 }
@@ -40,6 +43,7 @@ export function useEvents<T>(url: string, handle: (event: T) => void, inputs: In
   useEffect(() => {
     const source = new EventSource(url)
     source.onmessage = e => handle(JSON.parse(e.data) as T)
+    source.onerror = () => setTimeout(() => location.reload(), 5000)
     return () => source.close()
   }, inputs)
 }
