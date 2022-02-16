@@ -31,7 +31,6 @@ export function BeerTimer() {
 }
 
 function getRemaining(): number {
-  const lastPeriod = Math.floor(Date.now() / duration) * duration
-  const nextPeriod = lastPeriod + duration
-  return nextPeriod - Date.now()
+  const now = Date.now()
+  return Math.ceil(now / duration) * duration - now
 }
