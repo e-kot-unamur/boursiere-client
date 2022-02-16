@@ -19,7 +19,7 @@ export function BeerTable() {
         </tr>
       </thead>
       <tbody>
-        {beers.map(b => (
+        {beers.filter(b => b.stockQuantity > b.totalSoldQuantity).map(b => (
           <tr key={b.id}>
             <td>
               {b.name} {toVolume(b.bottleSize)}
