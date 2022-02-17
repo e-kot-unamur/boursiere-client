@@ -17,16 +17,20 @@ export function OrderTable(props: Props) {
     setBeers(beers.map(b => b.id === id ? { ...b, orderedQuantity } : b))
   }
 
-  const handleClick = async () => {
+  const handleSubmit = async () => {
     const orders = beers
       .filter(b => b.orderedQuantity !== 0)
       .map(b => ({ id: b.id, orderedQuantity: b.orderedQuantity }))
     try {
       await orderBeers(props.user.token, orders)
-      setBeers(beers.map(b => ({ ...b, orderedQuantity: 0 })))
+      handleCancel()
     } catch (err) {
       dispatchError(err as Error)
     }
+  }
+
+  const handleCancel = () => {
+    setBeers(beers.map(b => ({ ...b, orderedQuantity: 0 })))
   }
 
   const total = beers.reduce((a, b) => a + b.orderedQuantity * roundPrice(b.sellingPrice), 0)
@@ -34,8 +38,9 @@ export function OrderTable(props: Props) {
   return (
     <>
       <p>
-        <button onClick={handleClick}>Commander</button>
-        <span>Total : {toPrice(total)}</span>
+        <button onClick={handleCancel}>Annuler</button>
+        <button onClick={handleSubmit}>Commander</button>
+        <span><strong>Total</strong> : {toPrice(total)}</span>
       </p>
       <div class="orders">
         {beers.map(b => (
