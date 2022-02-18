@@ -49,8 +49,8 @@ async function readFile(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onload = () => resolve(reader.result as string)
-    reader.onerror = () => reject()
-    reader.onabort = () => reject()
+    reader.onerror = () => reject(new TypeError('loading file failed'))
+    reader.onabort = () => reject(new TypeError('loading file aborted'))
     reader.readAsText(file)
   })
 }
