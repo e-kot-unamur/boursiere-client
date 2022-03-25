@@ -136,7 +136,11 @@ export function useBeers(barId?: number): [Beer[], (newValue: Beer[]) => void] {
         setBeers(beers => e.data
           .map(b => {
             const previous = beers.find(p => p.id === b.id)
-            return { ...b, orderedQuantity: previous === undefined ? 0 : previous.orderedQuantity }
+            return {
+              ...b,
+              alcoholPerEuro: b.alcoholContent * b.bottleSize / b.sellingPrice,
+              orderedQuantity: previous === undefined ? 0 : previous.orderedQuantity,
+            }
           })
           .filter(b => barId === undefined || b.barId === barId))
         break
