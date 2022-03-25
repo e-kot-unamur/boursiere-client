@@ -7,6 +7,7 @@ export function BeerTable() {
   const [beers, _] = useBeers(barId)
 
   const minPrice = Math.min(...beers.map(b => b.sellingPrice))
+  const mostWorth = Math.max(...beers.map(b => b.alcoholPerEuro))
 
   return (
     <table>
@@ -22,6 +23,8 @@ export function BeerTable() {
         {beers.filter(b => b.stockQuantity > b.totalSoldQuantity).map(b => (
           <tr key={b.id}>
             <td>
+              {b.sellingPrice === minPrice && '💸 '}
+              {b.alcoholPerEuro == mostWorth && '🚀 '}
               {b.name} {toVolume(b.bottleSize)}
             </td>
             <td>
@@ -30,7 +33,6 @@ export function BeerTable() {
             <td>
               {toRoundedPrice(b.sellingPrice)}
               {toTrend(b)}
-              {b.sellingPrice === minPrice && ' 💸'}
             </td>
             <td>
               {b.stockQuantity - b.totalSoldQuantity}/{b.stockQuantity}

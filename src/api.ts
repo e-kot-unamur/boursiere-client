@@ -12,6 +12,10 @@ export interface Beer {
   previousSellingPrice: number
   bottleSize: number
   alcoholContent: number
+
+  // The following fields are not present on the server, they are created and
+  // used by the client only.
+  alcoholPerEuro: number
   orderedQuantity: number
 }
 
@@ -91,7 +95,11 @@ export async function getBeers(): Promise<Beer[]> {
     throw new ApiError(data.error)
   }
 
-  return (data as Beer[]).map(b => ({ ...b, orderedQuantity: 0 }))
+  return (data as Beer[]).map(b => ({
+    ...b,
+    alcoholPerEuro: b.alcoholContent * b.bottleSize / b.sellingPrice,
+    orderedQuantity: 0,
+  }))
 }
 
 export async function setBeers(token: string, body: string): Promise<Beer[]> {
