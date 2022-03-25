@@ -1,5 +1,5 @@
-import type { JSX } from 'preact'
 import type { Beer } from '../api'
+import { CounterInput } from './CounterInput'
 
 interface Props {
   beer: Beer
@@ -7,36 +7,17 @@ interface Props {
 }
 
 export function OrderCard(props: Props) {
-  const b = props.beer
-
-  const handleIncrement = () => {
-    props.onInput(b.id, b.orderedQuantity + 1)
-  }
-
-  const handleDecrement = () => {
-    props.onInput(b.id, b.orderedQuantity - 1)
-  }
-
-  const handleInput = (e: JSX.TargetedEvent<HTMLInputElement>) => {
-    props.onInput(b.id, e.currentTarget.valueAsNumber)
+  const handleInput = (value: number) => {
+    props.onInput(props.beer.id, value)
   }
 
   return (
     <div class="order">
-      <div>{b.name}</div>
-      <div class="order-control">
-        <button onClick={handleDecrement}>
-          &minus;
-        </button>
-        <input
-          type="number"
-          value={b.orderedQuantity}
-          onInput={handleInput}
-        />
-        <button onClick={handleIncrement}>
-          +
-        </button>
-      </div>
+      <div>{props.beer.name}</div>
+      <CounterInput
+        value={props.beer.orderedQuantity}
+        onInput={handleInput}
+      />
     </div>
   )
 }

@@ -49,6 +49,28 @@ input:not([type]), input[type=password] {
   width: 100%;
 }
 
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  /* Hide arrows of inputs */
+  /* https://stackoverflow.com/q/3790935 */
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.counter {
+  margin-top: 4px;
+  font-size: 14pt;
+}
+
+.counter > * {
+  width: 2em;
+  height: 2em;
+  text-align: center;
+}
+
 button, .button {
   display: inline-block;
   margin: 4px;

@@ -30,25 +30,3 @@ body {
 .order:nth-child(12n+10) { background-color: #bc80bd; }
 .order:nth-child(12n+11) { background-color: #ccebc5; }
 .order:nth-child(12n) { background-color: #ffed6f; }
-
-.order-control {
-  margin-top: 4px;
-  font-size: 14pt;
-}
-
-.order-control > * {
-  width: 2em;
-  height: 2em;
-  text-align: center;
-}
-
-/* Hide arrows of inputs */
-/* https://stackoverflow.com/q/3790935 */
-input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type=number] {
-  -moz-appearance: textfield;
-}
