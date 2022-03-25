@@ -1,4 +1,5 @@
 import { AlertBox } from '../components/AlertBox'
+import { BeerFooter } from '../components/BeerFooter'
 import { BeerTable } from '../components/BeerTable'
 import { BeerTimer } from '../components/BeerTimer'
 
@@ -8,6 +9,7 @@ export function BeerPage() {
       <AlertBox />
       <BeerTimer />
       <BeerTable />
+      <BeerFooter />
     </>
   )
 }

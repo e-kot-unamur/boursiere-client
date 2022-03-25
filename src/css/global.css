@@ -32,9 +32,17 @@ body {
   box-sizing: inherit;
 }
 
-/* Header bar */
+/* Header and footer */
 header {
   text-align: right;
+}
+
+footer {
+  text-align: center;
+}
+
+footer > * {
+  margin: 0 6px;
 }
 
 /* Buttons and inputs */
