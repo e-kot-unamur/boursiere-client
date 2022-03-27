@@ -25,7 +25,7 @@ export function BeerTable() {
           <tr key={b.id}>
             <td>
               {b.sellingPrice === minPrice && '💸 '}
-              {b.alcoholPerEuro == mostWorth && '🚀 '}
+              {b.alcoholPerEuro === mostWorth && '🚀 '}
               {b.name} {toVolume(b.bottleSize)}
             </td>
             <td>

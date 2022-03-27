@@ -48,7 +48,7 @@ export interface Statistics {
 export class ApiError extends Error {
   constructor(message: string) {
     super(message)
-    this.name = this.constructor.name
+    this.name = "ApiError"
   }
 }
 
