@@ -22,7 +22,8 @@ export function toVolume(value: number): string {
     symbol = 'hL'
   }
 
-  return `${value.toLocaleString('fr')} ${symbol}`
+  // We're using a non-breakable space (U+00A0).
+  return `${value.toLocaleString('fr')}\u00a0${symbol}`
 }
 
 export function toAlcoholContent(value: number): string {
