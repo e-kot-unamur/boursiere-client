@@ -1,6 +1,7 @@
 /* Customization */
 :root {
   --font-size: 14pt;
+  --mobile-font-size: 11pt;
   --primary-color: #141441;
   --alert-color: #d82424;
   --roundness: 2px;
@@ -30,6 +31,12 @@ body {
 
 *, ::before, ::after {
   box-sizing: inherit;
+}
+
+@media(max-width: 700px) {
+  body {
+    font-size: var(--mobile-font-size);
+  }
 }
 
 /* Header and footer */
@@ -65,6 +72,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 input[type=number] {
+  /* Hide arrows of inputs */
+  /* https://stackoverflow.com/q/3790935 */
   -moz-appearance: textfield;
 }
 
