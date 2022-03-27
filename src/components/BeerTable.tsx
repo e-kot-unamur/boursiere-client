@@ -6,8 +6,9 @@ export function BeerTable() {
   const barId = useIntUrlFragment()
   const [beers, _] = useBeers(barId)
 
-  const minPrice = Math.min(...beers.map(b => b.sellingPrice))
-  const mostWorth = Math.max(...beers.map(b => b.alcoholPerEuro))
+  const remainingBeers = beers.filter(b => b.totalSoldQuantity < b.stockQuantity)
+  const minPrice = Math.min(...remainingBeers.map(b => b.sellingPrice))
+  const mostWorth = Math.max(...remainingBeers.map(b => b.alcoholPerEuro))
 
   return (
     <table>
@@ -20,7 +21,7 @@ export function BeerTable() {
         </tr>
       </thead>
       <tbody>
-        {beers.filter(b => b.stockQuantity > b.totalSoldQuantity).map(b => (
+        {remainingBeers.map(b => (
           <tr key={b.id}>
             <td>
               {b.sellingPrice === minPrice && '💸 '}
