@@ -32,3 +32,16 @@ A lot more information can be found on the [server repo](https://github.com/e-ko
 | /order.html   | Page to take beer orders. **Authentication** is required.                                                          |
 | /order.html#1 | Only display beers of, e.g., bar #1.                                                                               |
 | /admin.html   | Administration page that allows to upload beers and manage users. **Authentication** as administrator is required. |
+
+## Improvements
+* Mettre à jour les dépendances [Server - Client] @Baetslé
+* Modifier le timer [Client] @Floté
+* Page de gestion des entrées [Client] @Floté [Server] @Baetslé
+* Ajouter un "théme" [Client] @Baetslé
+* Emoji variation bières [Client] @Baetslé
+* Extention fichier db - page Admin [Client] @Floté
+* Stat admin [Client] @Floté & Baetslé
+
+### Deadlines :
+* Lundi : RB
+* Vendredi : topo
