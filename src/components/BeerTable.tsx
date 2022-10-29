@@ -1,6 +1,8 @@
 import { Beer, useBeers } from '../api'
 import { useIntUrlFragment } from '../hooks'
 import { toAlcoholContent, toVolume, toRoundedPrice, roundPrice } from '../locales'
+import {h} from "preact";
+import '../css/beer.css'
 
 export function BeerTable() {
   const barId = useIntUrlFragment()
@@ -31,7 +33,7 @@ export function BeerTable() {
             <td>
               {toAlcoholContent(b.alcoholContent)}
             </td>
-            <td>
+            <td className="price">
               {toRoundedPrice(b.sellingPrice)}
               {toTrend(b)}
             </td>
@@ -45,13 +47,13 @@ export function BeerTable() {
   )
 }
 
-function toTrend(b: Beer): string {
+function toTrend(b: Beer) {
   const priceIncrease = roundPrice(b.sellingPrice) - roundPrice(b.previousSellingPrice)
   if (priceIncrease > 0) {
-    return ' ↗️'
+    return <i className="fa-solid fa-sort-up icon red"></i>;
   } else if (priceIncrease < 0) {
-    return ' ↘️'
+    return <i className="fa-solid fa-caret-down icon green"></i>;
   } else {
-    return ''
+    return <i className="fa-thin fa-minus icon neutral"></i>;
   }
 }

@@ -1,0 +1,29 @@
+.price {
+  font-size: 1.2em;
+}
+
+.icon {
+  font-size: 1.5em;
+  margin-left: 12px;
+  vertical-align: center;
+  text-align: center;
+}
+
+.red {
+  color: red;
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 0.4em;
+  margin-left: 16px;
+}
+
+.green {
+  color: forestgreen;
+  vertical-align: middle;
+  margin-left: 16px;
+}
+
+.neutral {
+  color: midnightblue;
+  vertical-align: middle;
+}
