@@ -1,3 +1,17 @@
+/* Table */
+table {
+  margin-bottom: 1em;
+}
+
+thead {
+  text-align: center;
+  background-color: rgba(90, 116, 175, 0.9);
+}
+
+.alcoholContent, .price, .stockQuantity {
+  text-align: center;
+}
+
 .price {
   font-size: 1.2em;
 }

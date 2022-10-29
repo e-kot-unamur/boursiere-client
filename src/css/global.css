@@ -113,7 +113,7 @@ table {
 }
 
 table, th, td {
-  border: 1px solid #ddd;
+  border: 1px solid #c2c2c2;
   border-collapse: collapse;
 }
 
@@ -125,10 +125,6 @@ tr:nth-child(even) {
   background-color: #eee;
 }
 
-th {
-  text-align: left;
-  background-color: #eee;
-}
 
 /* Overlays and modals */
 .overlay {

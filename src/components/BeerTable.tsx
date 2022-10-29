@@ -25,19 +25,19 @@ export function BeerTable() {
       <tbody>
         {remainingBeers.map(b => (
           <tr key={b.id}>
-            <td>
+            <td className="beerName">
               {b.sellingPrice === minPrice && '💸 '}
               {b.alcoholPerEuro === mostWorth && '🚀 '}
               {b.name} {toVolume(b.bottleSize)}
             </td>
-            <td>
+            <td className="alcoholContent">
               {toAlcoholContent(b.alcoholContent)}
             </td>
             <td className="price">
               {toRoundedPrice(b.sellingPrice)}
               {toTrend(b)}
             </td>
-            <td>
+            <td className="stockQuantity">
               {b.stockQuantity - b.totalSoldQuantity}/{b.stockQuantity}
             </td>
           </tr>
