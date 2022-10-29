@@ -38,10 +38,12 @@ A lot more information can be found on the [server repo](https://github.com/e-ko
 * Modifier le timer [Client] @Floté
 * Page de gestion des entrées [Client] @Floté [Server] @Baetslé
 * Ajouter un "théme" [Client] @Baetslé
-* Emoji variation bières [Client] @Baetslé
 * Extention fichier db - page Admin [Client] @Floté
 * Stat admin [Client] @Floté & Baetslé
 * Variable Timer pour les tests [Client - Server]
+* Ajouter le timer sur la page Order [Client] @Baetslé
+
+* ~~Emoji variation bières [Client] @Baetslé~~
 
 ### Deadlines :
 * Lundi : RB
