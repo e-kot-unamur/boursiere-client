@@ -35,15 +35,15 @@ A lot more information can be found on the [server repo](https://github.com/e-ko
 
 ## Improvements
 * Mettre à jour les dépendances [Server - Client] @Baetslé
-* Modifier le timer [Client] @Floté
 * Page de gestion des entrées [Client] @Floté [Server] @Baetslé
 * Ajouter un "théme" [Client] @Baetslé
 * Extention fichier db - page Admin [Client] @Floté
 * Stat admin [Client] @Floté & Baetslé
 * Variable Timer pour les tests [Client - Server]
-* Ajouter le timer sur la page Order [Client] @Baetslé
 
 * ~~Emoji variation bières [Client] @Baetslé~~
+* ~~Ajouter le timer sur la page Order [Client] @Floté~~
+* ~~Modifier le timer [Client] @Floté~~
 
 ### Deadlines :
 * Lundi : RB

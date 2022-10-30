@@ -23,8 +23,10 @@ export function BeerTimer() {
           <audio src={timeoutSound} autoPlay />
         </div>
       )}
-      <div class="progress" style={`width: ${percentage}%`}>
-        {toDuration(remaining)}
+      <div class="loading-bar">
+        <div class="progress" style={`width: ${percentage}%`}>
+          {toDuration(remaining)}
+        </div>
       </div>
     </p>
   )
