@@ -2,6 +2,7 @@ node_modules/
 dist/
 
 .vscode/
+.DS_Store
 /.idea/boursiere-client.iml
 /.idea/jsLibraryMappings.xml
 /.idea/modules.xml

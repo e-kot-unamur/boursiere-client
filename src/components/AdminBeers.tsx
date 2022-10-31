@@ -28,8 +28,7 @@ export function AdminBeers(props: Props) {
       <p>
         Vous pouvez charger les différentes bières dans le système en
         téléchargeant ci-dessous un fichier CSV. Si nécessaire, un <a
-          href="https://github.com/e-kot-unamur/boursiere-server/raw/main/doc/beers.ods"
-          download
+          href="src/doc/beers.csv"
         >template</a> est disponible sur GitHub.
       </p>
       <p>
