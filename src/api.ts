@@ -298,7 +298,7 @@ export function useEntries(token : string): [Entries[], (newValue : Entries[]) =
   useEvents(`${host}/api/entries/events`, (e: EntriesEvent) => {
     switch (e.type) {
       case 'update':
-        setEntries(() => e.data)
+        setEntries(() => e.data.reverse())
         break
 
       case 'order':
