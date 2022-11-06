@@ -1,5 +1,6 @@
 import type { Beer } from '../api'
 import { CounterInput } from './CounterInput'
+import {toRoundedPrice} from "../locales";
 
 interface Props {
   beer: Beer
@@ -13,7 +14,7 @@ export function OrderCard(props: Props) {
 
   return (
     <div class="order">
-      <div>{props.beer.name}</div>
+      <div>{props.beer.name} ({toRoundedPrice(props.beer.sellingPrice)})</div>
       <CounterInput
         value={props.beer.orderedQuantity}
         onInput={handleInput}
