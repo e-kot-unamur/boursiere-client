@@ -34,6 +34,7 @@ export function AdminStats(props: Props) {
   return (
     <>
       <h2>Statistiques</h2>
+      <h3>Bars</h3>
       <table>
         <tr>
           <th>Bières vendues</th>
@@ -54,10 +55,23 @@ export function AdminStats(props: Props) {
       </table>
       <p><small>1 hL = 100 L = 10 000 cL</small></p>
 
+      <h3>Entrées</h3>
       <table>
         <tr>
           <th>Préventes vendues</th>
           <td>{entriesStat}</td>
+        </tr>
+        <tr>
+          <th>Bénéfices estimés</th>
+          <td>{toPrice(entriesStat * 4)} </td>
+        </tr>
+      </table>
+
+      <h3>Final</h3>
+      <table>
+        <tr>
+          <th>Bénéfice final estimé</th>
+          <td>{toPrice(entriesStat * 4)}   {toPrice(beerStats.estimatedProfit)} = <b>{toPrice((entriesStat*4) + beerStats.estimatedProfit)}</b></td>
         </tr>
       </table>
     </>
