@@ -4,6 +4,7 @@ import {toRoundedPrice} from "../locales";
 import {useState} from "preact/hooks";
 import {createEntry, createUser, User} from "../api";
 import {dispatchError} from "./AlertBox";
+import {JSX} from "preact";
 
 interface Props {
   user: User
@@ -11,6 +12,10 @@ interface Props {
 
 export function EntriesCard(props : Props) {
   let [value, setValue] = useState<number>(0);
+
+  const handleInput = (e: JSX.TargetedEvent<HTMLInputElement>) => {
+    setValue(() => e.currentTarget.valueAsNumber)
+  }
 
   const handleSubmit = async () => {
     try {
@@ -41,6 +46,7 @@ export function EntriesCard(props : Props) {
           <input
             type="number"
             value={value}
+            onInput={handleInput}
           />
           <button onClick={handleIncrement}>
             +
