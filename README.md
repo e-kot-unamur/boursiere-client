@@ -34,12 +34,11 @@ A lot more information can be found on the [server repo](https://github.com/e-ko
 | /admin.html   | Administration page that allows to upload beers and manage users. **Authentication** as administrator is required. |
 
 ## Improvements
-* Mettre à jour les dépendances [Server - Client] @Baetslé
 * Page de gestion des entrées [Client] @Floté [Server] @Baetslé
 * Ajouter un "théme" [Client] @Baetslé
 * Stat admin [Client] @Floté & Baetslé
-* Variable Timer pour les tests [Client - Server]
 
+* ~~Mettre à jour les dépendances [Server - Client] @Baetslé~~
 * ~~Emoji variation bières [Client] @Baetslé~~
 * ~~Ajouter le timer sur la page Order [Client] @Floté~~
 * ~~Modifier le timer [Client] @Floté~~
