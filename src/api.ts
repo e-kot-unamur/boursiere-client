@@ -41,6 +41,20 @@ export interface UserFormData {
   admin: boolean
 }
 
+export interface Entries {
+  id: number
+  timestamp : number
+  orderedQuantity : number
+}
+
+export interface EntriesOrder {
+  orderedQuantity: number
+}
+
+export type EntriesEvent =
+  | { type: 'update', data: Entries[] }
+  | { type: 'order', data: EntriesOrder[] }
+
 export interface Statistics {
   estimatedProfit: number
 }
@@ -253,4 +267,46 @@ export async function deleteUser(token: string, id: number) {
     const data = await response.json()
     throw new ApiError(data.error)
   }
+}
+
+// Test
+export function useEntries(token : string): [Entries[], (newValue : Entries[]) => void] {
+  let [entries, setEntries] = useState<Entries[]>([])
+
+  useEffect(() => {
+    getEntries(token)
+      .then(e => setEntries(e))
+      .catch(dispatchError)
+  }, [])
+
+
+  useEvents(`${host}/api/entries/events`, (e: EntriesEvent) => {
+    switch (e.type) {
+      case 'update':
+        setEntries(entries => e.data)
+        break
+
+      case 'order':
+        // @ts-ignore
+        setEntries(() => e.data)
+        break
+    }
+  }, [])
+
+
+  return [entries, setEntries]
+}
+
+export async function getEntries(token: string): Promise<Entries[]> {
+  const response = await fetch(`${host}/api/entries`, {
+    credentials: 'include',
+    headers: { 'Authorization': `Bearer ${token}` },
+  })
+
+  const data = await response.json()
+  if (!response.ok) {
+    throw new ApiError(data.error)
+  }
+
+  return data as Entries[]
 }
