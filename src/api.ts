@@ -333,3 +333,17 @@ export async function createEntry(token: string, quantity: EntriesFormData): Pro
 
   return data as Entries
 }
+
+export async function getEntriesStatistics(token: string): Promise<number> {
+  const response = await fetch(`${host}/api/entries/stat`, {
+    credentials: 'include',
+    headers: { 'Authorization': `Bearer ${token}` },
+  })
+
+  const data = await response.json()
+  if (!response.ok) {
+    throw new ApiError(data.error)
+  }
+
+  return data as number
+}
