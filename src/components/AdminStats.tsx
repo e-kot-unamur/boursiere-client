@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'preact/hooks'
-import {getEntriesStatistics, getStatistics, Statistics, useBeers, useEntries, User} from '../api'
+import {EntriesStatistics, getEntriesStatistics, getStatistics, Statistics, useBeers, useEntries, User} from '../api'
 import { toPrice, toVolume } from '../locales'
 import { dispatchError } from './AlertBox'
 
@@ -11,7 +11,7 @@ export function AdminStats(props: Props) {
   const [beers, _] = useBeers()
   const [entries, __] = useEntries(props.user.token)
   const [beerStats, setStats] = useState<Statistics>({ estimatedProfit: 0 })
-  const [entriesStat, setStat] = useState<number>(0)
+  const [entriesStat, setStat] = useState<EntriesStatistics>({peopleCurrentParty: 0, totalSale: 0})
 
   useEffect(() => {
     getStatistics(props.user.token)
@@ -59,11 +59,15 @@ export function AdminStats(props: Props) {
       <table>
         <tr>
           <th>Préventes vendues</th>
-          <td>{entriesStat}</td>
+          <td>{entriesStat.totalSale}</td>
+        </tr>
+        <tr>
+          <th>Personnes présentes</th>
+          <td>{entriesStat.peopleCurrentParty}</td>
         </tr>
         <tr>
           <th>Bénéfices estimés</th>
-          <td>{toPrice(entriesStat * 4)} </td>
+          <td>{toPrice(entriesStat.totalSale * 4)} </td>
         </tr>
       </table>
 
@@ -71,7 +75,7 @@ export function AdminStats(props: Props) {
       <table>
         <tr>
           <th>Bénéfice final estimé</th>
-          <td>{toPrice(entriesStat * 4)}   {toPrice(beerStats.estimatedProfit)} = <b>{toPrice((entriesStat*4) + beerStats.estimatedProfit)}</b></td>
+          <td>{toPrice(entriesStat.totalSale * 4)}   {toPrice(beerStats.estimatedProfit)} = <b>{toPrice((entriesStat.totalSale*4) + beerStats.estimatedProfit)}</b></td>
         </tr>
       </table>
     </>
