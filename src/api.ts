@@ -45,6 +45,7 @@ export interface Entries {
   id: number
   timestamp : number
   orderedQuantity : number
+  endOfParty : boolean
 }
 
 export interface EntriesOrder {

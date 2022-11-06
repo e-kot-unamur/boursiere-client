@@ -9,6 +9,7 @@ import {
 import {useEffect, useState} from "preact/hooks";
 import {dispatchError} from "./AlertBox";
 import {toDate, toTime} from "../locales";
+import {h} from "preact";
 
 interface Props {
   user: User
@@ -25,7 +26,6 @@ export function EntriesTable(props: Props) {
   }, [props.user.token, entries])
 
   const handleEndOfParty = async () => {
-    console.log("End Of Party")
     try {
       await createEndOfParty(props.user.token)
     } catch (err) {
@@ -50,7 +50,7 @@ export function EntriesTable(props: Props) {
           <tr>
             <td>{toDate(e.timestamp)}</td>
             <td>{toTime(e.timestamp)}</td>
-            <td class="orderedQuantity">{e.orderedQuantity}</td>
+            <td class="orderedQuantity">{(e.endOfParty ? icon():e.orderedQuantity)}</td>
           </tr>
         ))
       }
@@ -58,5 +58,10 @@ export function EntriesTable(props: Props) {
       <button class="endOfParty" onClick={handleEndOfParty}>Prévente arrachée +1</button>
     </div>
   )
+
+  function icon() {
+    return <span class="icon"><i className="fa-sharp fa-solid fa-person-from-portal"></i></span>;
+  }
 }
+
 

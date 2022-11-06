@@ -44,3 +44,7 @@ td.orderedQuantity {
   display: block;
   margin: 10px auto;
 }
+
+.icon {
+  color: #777777;
+}
