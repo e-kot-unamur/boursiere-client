@@ -1,8 +1,5 @@
-import type { Beer } from '../api'
-import { CounterInput } from './CounterInput'
-import {toRoundedPrice} from "../locales";
 import {useState} from "preact/hooks";
-import {createEntry, createUser, User} from "../api";
+import {createEntry, User} from "../api";
 import {dispatchError} from "./AlertBox";
 import {JSX} from "preact";
 
@@ -28,11 +25,11 @@ export function EntriesCard(props : Props) {
   }
 
   const handleIncrement = () => {
-    setValue(values => value+1)
+    setValue(() => value+1)
   }
 
   const handleDecrement = () => {
-    setValue(values => value-1)
+    setValue(() => value-1)
   }
 
   return (
