@@ -55,7 +55,7 @@ export function EntriesTable(props: Props) {
         ))
       }
       </table>
-      <button class="endOfParty" onClick={handleEndOfParty}>Prévente arrachée +1</button>
+      <button class="endOfParty" onClick={handleEndOfParty}>{icon()} Prévente arrachée +1</button>
     </div>
   )
 
