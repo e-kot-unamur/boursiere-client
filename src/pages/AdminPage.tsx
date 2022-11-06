@@ -3,6 +3,7 @@ import { AdminBeers } from '../components/AdminBeers'
 import { AdminStats } from '../components/AdminStats'
 import { AdminUsers } from '../components/AdminUsers'
 import { AlertBox } from '../components/AlertBox'
+import {BeerTimer} from "../components/BeerTimer";
 
 interface Props {
   user: User
@@ -18,6 +19,7 @@ export function AdminPage(props: Props) {
   return (
     <>
       <AlertBox />
+      <BeerTimer />
       <AdminStats user={props.user} />
       <AdminBeers user={props.user} />
       <AdminUsers user={props.user} />
