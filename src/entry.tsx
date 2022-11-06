@@ -1,6 +1,6 @@
 import { render } from 'preact'
 import { UserProvider } from './components/UserProvider'
 import './css/global.css'
-import {EntriesOrder} from "./components/EntriesOrder";
+import {EntriesPage} from "./pages/EntriesPage";
 
-render(<UserProvider page={EntriesOrder} />, document.getElementById('app')!)
+render(<UserProvider page={EntriesPage} />, document.getElementById('app')!)

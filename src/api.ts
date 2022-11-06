@@ -55,6 +55,10 @@ export type EntriesEvent =
   | { type: 'update', data: Entries[] }
   | { type: 'order', data: EntriesOrder[] }
 
+export interface EntriesFormData {
+  orderedQuantity: number
+}
+
 export interface Statistics {
   estimatedProfit: number
 }
@@ -309,4 +313,23 @@ export async function getEntries(token: string): Promise<Entries[]> {
   }
 
   return data as Entries[]
+}
+
+export async function createEntry(token: string, quantity: EntriesFormData): Promise<Entries> {
+  const response = await fetch(`${host}/api/entries`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(quantity)
+  })
+
+  const data = await response.json()
+  if (!response.ok) {
+    throw new ApiError(data.error)
+  }
+
+  return data as Entries
 }

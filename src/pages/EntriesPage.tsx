@@ -1,16 +1,18 @@
 import type { User } from '../api'
 import { AlertBox } from '../components/AlertBox'
-import {EntriesOrder} from "../components/EntriesOrder";
+import {EntriesTable} from "../components/EntriesTable";
+import {EntriesCard} from "../components/EntriesCard";
 
 interface Props {
   user: User
 }
 
-export function OrderPage(props: Props) {
+export function EntriesPage(props: Props) {
   return (
     <>
       <AlertBox />
-      <EntriesOrder  user={props.user}/>
+      <EntriesCard  user={props.user}/>
+      <EntriesTable user={props.user}/>
     </>
   )
 }
