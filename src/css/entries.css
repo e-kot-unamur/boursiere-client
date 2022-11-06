@@ -1,0 +1,46 @@
+h1 {
+  text-align: center;
+}
+
+.order {
+  display: flex;
+}
+
+.counter {
+  margin: 10px auto;
+}
+
+.nbSale {
+  text-align: center;
+  display: block;
+  margin-top: 3vh;
+  padding: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.47);
+}
+
+.totalSale {
+  font-size: 1.5em;
+}
+
+.peopleCurrentParty {
+  display: block;
+  margin-top: 5px;
+  font-size: 1.1em;
+}
+
+table.saleList {
+  width: 90%;
+  margin: 10px auto;
+  text-align: center;
+}
+
+td.orderedQuantity {
+  font-weight: bold;
+  width: 40%;
+}
+
+.endOfParty {
+  width: 90%;
+  display: block;
+  margin: 10px auto;
+}

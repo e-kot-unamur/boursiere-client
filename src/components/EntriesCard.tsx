@@ -21,7 +21,6 @@ export function EntriesCard(props : Props) {
     } catch (err) {
       dispatchError(err as Error)
     }
-
   }
 
   const handleIncrement = () => {
@@ -35,7 +34,6 @@ export function EntriesCard(props : Props) {
   return (
     <>
       <div class="order">
-        <div>Entrée (4€)</div>
         <span className="counter">
           <button onClick={handleDecrement}>
             &minus;
@@ -49,8 +47,8 @@ export function EntriesCard(props : Props) {
             +
           </button>
         </span>
+        <button onClick={handleSubmit}>Encoder la vente</button>
       </div>
-      <button onClick={handleSubmit}>Encoder la vente</button>
     </>
   )
 }

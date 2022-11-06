@@ -42,3 +42,12 @@ export function toDuration(value: number): string {
   // We're using the ratio character '∶' (U+2236) instead of a colon ':' (U+003A).
   return `${minutes}\u2236${seconds}`
 }
+
+export function toDate(value : number) : string {
+  let s = value.toString()
+  return `${s.slice(8,10)}/${s.slice(5,7)}/${s.slice(0,4)}`
+}
+
+export function toTime(value : number) : string {
+  return `${value.toString().slice(11,16)}`
+}

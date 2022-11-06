@@ -59,8 +59,18 @@ export interface EntriesFormData {
   orderedQuantity: number
 }
 
+export interface EndOfPartyFormData {
+  orderedQuantity: number
+  endOfParty : boolean
+}
+
 export interface Statistics {
   estimatedProfit: number
+}
+
+export interface EntriesStatistics {
+  peopleCurrentParty: number
+  totalSale : number
 }
 
 export class ApiError extends Error {
@@ -279,7 +289,7 @@ export function useEntries(token : string): [Entries[], (newValue : Entries[]) =
 
   useEffect(() => {
     getEntries(token)
-      .then(e => setEntries(e))
+      .then(e => setEntries(e.reverse()))
       .catch(dispatchError)
   }, [])
 
@@ -287,12 +297,12 @@ export function useEntries(token : string): [Entries[], (newValue : Entries[]) =
   useEvents(`${host}/api/entries/events`, (e: EntriesEvent) => {
     switch (e.type) {
       case 'update':
-        setEntries(entries => e.data)
+        setEntries(() => e.data)
         break
 
       case 'order':
         // @ts-ignore
-        setEntries(() => e.data)
+        setEntries(() => e.data.reverse())
         break
     }
   }, [])
@@ -334,7 +344,27 @@ export async function createEntry(token: string, quantity: EntriesFormData): Pro
   return data as Entries
 }
 
-export async function getEntriesStatistics(token: string): Promise<number> {
+export async function createEndOfParty(token: string): Promise<Entries> {
+  const body :EndOfPartyFormData = {endOfParty: true, orderedQuantity: -1}
+  const response = await fetch(`${host}/api/entries`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(body)
+  })
+
+  const data = await response.json()
+  if (!response.ok) {
+    throw new ApiError(data.error)
+  }
+
+  return data as Entries
+}
+
+export async function getEntriesStatistics(token: string): Promise<EntriesStatistics> {
   const response = await fetch(`${host}/api/entries/stat`, {
     credentials: 'include',
     headers: { 'Authorization': `Bearer ${token}` },
@@ -345,5 +375,5 @@ export async function getEntriesStatistics(token: string): Promise<number> {
     throw new ApiError(data.error)
   }
 
-  return data as number
+  return data as EntriesStatistics
 }
