@@ -3,7 +3,7 @@ import '../css/timer.css'
 import { toDuration } from '../locales'
 import timeoutSound from '../sounds/okletsgo.ogg'
 
-const duration = 2 * 60 * 1000
+const duration = 15 * 60 * 1000
 
 export function BeerTimer() {
   const [remaining, setRemaining] = useState(getRemaining)
