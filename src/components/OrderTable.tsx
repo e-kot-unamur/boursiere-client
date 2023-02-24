@@ -65,6 +65,7 @@ export function OrderTable(props: Props) {
         <button onClick={handleSubmit}>Commander</button>
         <span><strong>Total</strong>&nbsp;: {toPrice(total)}</span>
       </p>
+
       <div class="orders">
         {beers.map(b => (
           <OrderCard key={b.id} beer={b} onInput={handleInput} />
