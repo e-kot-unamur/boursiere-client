@@ -189,6 +189,8 @@ export function useBeers(barId?: number): [Beer[], (newValue: Beer[]) => void] {
 }
 
 export async function orderBeers(token: string, orders: BeerOrder[]) {
+  console.log("orderBeers")
+  console.log(orders)
   const response = await fetch(`${host}/api/beers/order`, {
     method: 'POST',
     credentials: 'include',
