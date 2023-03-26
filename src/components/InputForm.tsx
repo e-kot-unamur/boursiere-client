@@ -8,16 +8,35 @@ interface Props {
 
 export function KeyboardInput(props: Props) {
   const [inputValue, setInputValue] = useState('');
+  const [lastScanValue, setLastScanValue] = useState('');
+  const [quantityValue, setQuantityValue] = useState<number>(0);
 
   const handleInputChange = (e: JSX.TargetedEvent<HTMLInputElement>) => {
     setInputValue(e.currentTarget.value);
   };
 
+  const getId = () => {
+    return 1
+  }
+
   const handleKeyUp = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
-      console.log('Touche ENTER détectée');
-      // Faites ici ce que vous voulez lorsque la touche ENTER est pressée
-      props.onInput(9, 1)
+      console.log('ENTER');
+      console.log('quantity after enter : ' + quantityValue)
+      if (lastScanValue === inputValue) {
+        console.log('same beer')
+        setQuantityValue(quantityValue+1)
+        props.onInput(getId() ,quantityValue+1)
+      } else {
+        console.log('new beer')
+        setQuantityValue(1)
+        props.onInput(getId() ,1)
+      }
+
+      setLastScanValue(inputValue)
+
+      console.log('quantity at the end : ' + quantityValue)
+
       setInputValue('')
     }
   };
@@ -32,6 +51,7 @@ export function KeyboardInput(props: Props) {
         placeholder="Tapez ici"
       />
       <p>Vous avez tapé : {inputValue}</p>
+      <p>Nb de produit : {quantityValue}</p>
     </div>
   );
 }

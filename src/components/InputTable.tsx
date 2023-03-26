@@ -26,7 +26,9 @@ export function InputTable(props: Props) {
   const total = beers.reduce((a, b) => a + b.orderedQuantity * roundPrice(b.sellingPrice), 0)
 
   const handleInput = (id: number, orderedQuantity: number) => {
+    console.log("id : " + id + " - orderQuantity: " + orderedQuantity)
     setBeers(beers.map(b => b.id === id ? { ...b, orderedQuantity } : b))
+    console.log(beers)
   }
 
   const handleSubmit = async () => {
@@ -37,12 +39,12 @@ export function InputTable(props: Props) {
     console.log(orders)
     try {
       await orderBeers(props.user.token, orders)
-     // handleReset()
-     /* setHistory([{
+     handleReset()
+     setHistory([{
         text: orderedBeers.map(b => `${b.orderedQuantity} ${b.name}`).join(', '),
         total,
         orders,
-      }, ...history.slice(0, 4)])*/
+      }, ...history.slice(0, 4)])
     } catch (err) {
       console.log("err")
       console.log(err)
@@ -75,7 +77,7 @@ export function InputTable(props: Props) {
 
       <div class="orders">
         {beers.map(b => (
-          <OrderCard key={b.id} beer={b} onInput={handleInput} />
+          <p>{b.name} - {b.orderedQuantity}</p>
         ))}
       </div>
       <ul>
