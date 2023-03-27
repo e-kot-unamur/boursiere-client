@@ -11,6 +11,7 @@ export default defineConfig({
         index: resolve(__dirname, 'index.html'),
         order: resolve(__dirname, 'order.html'),
         admin: resolve(__dirname, 'admin.html'),
+        entries: resolve(__dirname, 'entries.html'),
       },
     },
   },
