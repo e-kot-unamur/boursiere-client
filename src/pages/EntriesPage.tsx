@@ -11,10 +11,11 @@ interface Props {
 export function EntriesPage(props: Props) {
   return (
     <>
-      <AlertBox />
+      <script src="https://kit.fontawesome.com/760f314f8c.js" crossOrigin="anonymous"></script>
+      <AlertBox/>
       <h1>Gestion des préventes</h1>
-      <EntriesCard  user={props.user} />
-      <EntriesTable user={props.user} />
+      <EntriesCard user={props.user}/>
+      <EntriesTable user={props.user}/>
     </>
   )
 }
